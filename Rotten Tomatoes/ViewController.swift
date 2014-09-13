@@ -80,15 +80,15 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     //MARK: Search Delegate Methods
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        println("searchBarTextDidEndEditing Before")
+        println("searchBarTextDidEndEditing")
         searchBar.resignFirstResponder()
-        println("searchBarTextDidEndEditing After")
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         println("searchBarCancelButtonClicked")
         searchBar.resignFirstResponder()
     }
+    
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         if(!searchText.isEmpty){
@@ -98,23 +98,19 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
             searchResultMovies = movies
         }
         self.tableViewMovies.reloadData()
-        
     }
-    
+    // search movies in original movies array and update to search result movies array
     func searchMovie(searchQuery: String){
-        println("Size = \(self.movies.count)")
         var counter: Int = 0
         for var i = 0 ;i < self.movies.count;i++ {
             var movie = self.movies[i] as NSDictionary
             var title  = movie["title"] as? String
             if(title?.rangeOfString(searchQuery) != nil){
-                println("and i = \(i) , searchResultMovie capacity = \(searchResultMovies.count)")
                 self.searchResultMovies.insert(movie, atIndex: counter  )
                 counter++
             }
-            
         }
     }
-
+    
 }
 
