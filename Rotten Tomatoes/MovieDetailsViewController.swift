@@ -9,7 +9,7 @@
 import UIKit
 
 class MovieDetailsViewController: UIViewController {
-
+    
     @IBOutlet weak var imageViewMoviePoster: UIImageView!
     
     var movieUrl :String! = ""
@@ -19,23 +19,27 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         var posterUrl = poster["thumbnail"] as String
-        var origPosterUrl = posterUrl.stringByReplacingOccurrencesOfString("tmb", withString: "det", options: nil, range: nil)
+        //load low res image
+        var detPosterUrl = posterUrl.stringByReplacingOccurrencesOfString("tmb", withString: "mob", options: nil, range: nil)
+                println("detPosterUrl \(detPosterUrl)")
+        imageViewMoviePoster.setImageWithURL(NSURL(string: detPosterUrl))
+
+        //load high res image
+        var origPosterUrl = posterUrl.stringByReplacingOccurrencesOfString("tmb", withString: "org", options: nil, range: nil)
+        println("OrigPosterUrl \(origPosterUrl)")
         imageViewMoviePoster.setImageWithURL(NSURL(string: origPosterUrl))
-        println("URL " + posterUrl )
-
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-
+        
     }
 }
