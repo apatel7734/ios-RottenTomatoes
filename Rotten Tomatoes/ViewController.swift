@@ -45,6 +45,9 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     }
     
     func reloadMoviesFromNetwork(){
+        if(self.refreshControl.refreshing){
+            self.refreshControl.attributedTitle = NSAttributedString(string: "Loading")
+        }
         var request = NSURLRequest(URL: NSURL(string: RottenTomatoesURLString));
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response : NSURLResponse!, data : NSData!, error :NSError!) -> Void in
             //check for network error
@@ -60,6 +63,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
                 self.tableViewMovies.reloadData()
             }
             if(self.refreshControl.refreshing){
+                self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
                 self.refreshControl.endRefreshing()
             }
             self.progressView.hidden=true
