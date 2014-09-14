@@ -16,6 +16,7 @@
 		75055DE619C1F9E40027FF8E /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75055DE519C1F9E40027FF8E /* MovieTableViewCell.swift */; };
 		75055DE919C1FD5A0027FF8E /* RottenTomatoesNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75055DE819C1FD5A0027FF8E /* RottenTomatoesNetworkClient.swift */; };
 		7598C2B819C4B5DD00FC5089 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7598C2B719C4B5DD00FC5089 /* MovieDetailsViewController.swift */; };
+		7598C2BE19C5FFF200FC5089 /* network_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 7598C2BD19C5FFF200FC5089 /* network_error.png */; };
 		A49EF18A44AE4D6DA7783A7B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4CCF24E2DF4B3B854A44E0 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		75055DE819C1FD5A0027FF8E /* RottenTomatoesNetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RottenTomatoesNetworkClient.swift; sourceTree = "<group>"; };
 		7598C2B419C4AA2100FC5089 /* Rotten Tomatoes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rotten Tomatoes-Bridging-Header.h"; sourceTree = "<group>"; };
 		7598C2B719C4B5DD00FC5089 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		7598C2BD19C5FFF200FC5089 /* network_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = network_error.png; sourceTree = "<group>"; };
 		8B4CCF24E2DF4B3B854A44E0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 		75055DC319C147CF0027FF8E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7598C2BD19C5FFF200FC5089 /* network_error.png */,
 				75055DC419C147CF0027FF8E /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -230,6 +233,7 @@
 				75055DCB19C147CF0027FF8E /* Main.storyboard in Resources */,
 				75055DD019C147CF0027FF8E /* LaunchScreen.xib in Resources */,
 				75055DCD19C147CF0027FF8E /* Images.xcassets in Resources */,
+				7598C2BE19C5FFF200FC5089 /* network_error.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

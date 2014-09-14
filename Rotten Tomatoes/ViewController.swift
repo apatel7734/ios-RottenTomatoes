@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate{
     
     
+    @IBOutlet weak var networkErrorView: UIView!
     @IBOutlet weak var moviesSearchBar: UISearchBar!
     @IBOutlet var tableViewMovies: UITableView!
     @IBOutlet weak var progressView: UIActivityIndicatorView!
@@ -24,22 +25,31 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        //MARK: register all delegates
         tableViewMovies.dataSource = self
         moviesSearchBar.delegate = self
         moviesSearchBar.setShowsCancelButton(true, animated: true)
+        self.networkErrorView.hidden=true
         
         var request = NSURLRequest(URL: NSURL(string: RottenTomatoesURLString));
         //before sending asynchronouse call
         progressView.startAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible=true
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response : NSURLResponse!, data : NSData!, error :NSError!) -> Void in
-            //response recieved
-            var object = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
-            self.movies = object["movies"] as [NSDictionary]
-            self.searchResultMovies = self.movies
+            //check for network error
+            if(error != nil && error.code == -1009){
+                println("Error code = \(error.code)")
+                self.networkErrorView.hidden = false
+            }else if(data != nil){
+                //response recieved
+                var object = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
+                self.movies = object["movies"] as [NSDictionary]
+                self.searchResultMovies = self.movies
+                UIApplication.sharedApplication().networkActivityIndicatorVisible=false
+                self.tableViewMovies.reloadData()
+            }
             self.progressView.hidden=true
-            UIApplication.sharedApplication().networkActivityIndicatorVisible=false
-            self.tableViewMovies.reloadData()
+            
         }
     }
     
