@@ -21,12 +21,10 @@ class MovieDetailsViewController: UIViewController {
         var posterUrl = poster["thumbnail"] as String
         //load low res image
         var detPosterUrl = posterUrl.stringByReplacingOccurrencesOfString("tmb", withString: "mob", options: nil, range: nil)
-                println("detPosterUrl \(detPosterUrl)")
         imageViewMoviePoster.setImageWithURL(NSURL(string: detPosterUrl))
-
+        
         //load high res image
         var origPosterUrl = posterUrl.stringByReplacingOccurrencesOfString("tmb", withString: "org", options: nil, range: nil)
-        println("OrigPosterUrl \(origPosterUrl)")
         imageViewMoviePoster.setImageWithURL(NSURL(string: origPosterUrl))
     }
     

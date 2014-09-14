@@ -13,6 +13,8 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     
     @IBOutlet weak var moviesSearchBar: UISearchBar!
     @IBOutlet var tableViewMovies: UITableView!
+    @IBOutlet weak var progressView: UIActivityIndicatorView!
+    
     
     var RottenTomatoesURLString:String = "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=30&country=us&apikey=kbaevw39bnwehvgepssgthad"
     var movies: [NSDictionary] = []
@@ -22,17 +24,21 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         tableViewMovies.dataSource = self
         moviesSearchBar.delegate = self
         moviesSearchBar.setShowsCancelButton(true, animated: true)
         
         var request = NSURLRequest(URL: NSURL(string: RottenTomatoesURLString));
-        
+        //before sending asynchronouse call
+        progressView.startAnimating()
+        UIApplication.sharedApplication().networkActivityIndicatorVisible=true
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response : NSURLResponse!, data : NSData!, error :NSError!) -> Void in
+            //response recieved
             var object = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
             self.movies = object["movies"] as [NSDictionary]
             self.searchResultMovies = self.movies
+            self.progressView.hidden=true
+            UIApplication.sharedApplication().networkActivityIndicatorVisible=false
             self.tableViewMovies.reloadData()
         }
     }
