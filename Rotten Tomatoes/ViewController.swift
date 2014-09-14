@@ -21,6 +21,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     var movies: [NSDictionary] = []
     var searchResultMovies: [NSDictionary] = []
     var imageCache = [String : UIImage]()
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +32,20 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         moviesSearchBar.setShowsCancelButton(true, animated: true)
         self.networkErrorView.hidden=true
         
-        var request = NSURLRequest(URL: NSURL(string: RottenTomatoesURLString));
+        //Refresh Control
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+        self.refreshControl.addTarget(self, action: "reloadMoviesFromNetwork", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableViewMovies.addSubview(refreshControl)
+        
         //before sending asynchronouse call
         progressView.startAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible=true
+        reloadMoviesFromNetwork()
+    }
+    
+    func reloadMoviesFromNetwork(){
+        var request = NSURLRequest(URL: NSURL(string: RottenTomatoesURLString));
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response : NSURLResponse!, data : NSData!, error :NSError!) -> Void in
             //check for network error
             if(error != nil && error.code == -1009){
@@ -48,8 +59,10 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
                 UIApplication.sharedApplication().networkActivityIndicatorVisible=false
                 self.tableViewMovies.reloadData()
             }
+            if(self.refreshControl.refreshing){
+                self.refreshControl.endRefreshing()
+            }
             self.progressView.hidden=true
-            
         }
     }
     
