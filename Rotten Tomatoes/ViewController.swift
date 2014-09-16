@@ -83,7 +83,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
                     let indexPath = self.tableViewMovies.indexPathForSelectedRow() as NSIndexPath?
                     let row = indexPath?.row
                     let movie = self.movies[row!]
-                    destinationVC.poster = movie["posters"] as NSDictionary
+                    destinationVC.movie = movie
                 }
             }
         }

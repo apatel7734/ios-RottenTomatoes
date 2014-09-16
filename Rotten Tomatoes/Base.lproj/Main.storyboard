@@ -147,6 +147,7 @@
                     <connections>
                         <outlet property="imageViewMoviePoster" destination="ZKk-V4-scP" id="YfN-Vu-1p5"/>
                         <outlet property="labelMovieDetail" destination="SrV-99-oKE" id="w40-pG-NBZ"/>
+                        <outlet property="labelMovieTitle" destination="ZkE-xE-xSw" id="hrQ-Th-ISC"/>
                         <outlet property="scrollViewMovieDetail" destination="EKu-KA-GyE" id="OQs-b0-gIE"/>
                         <outlet property="uiView" destination="7Kf-Ua-W2n" id="MdN-Ey-PA3"/>
                     </connections>
