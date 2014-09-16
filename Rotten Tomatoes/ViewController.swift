@@ -24,6 +24,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //MARK: register all delegates
@@ -93,6 +94,10 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var movieCell = tableView.dequeueReusableCellWithIdentifier("moviecell") as MovieTableViewCell
+        var orangeColor = UIColor.orangeColor()
+        movieCell.selectedBackgroundView?.backgroundColor = orangeColor
+        
+        movieCell.backgroundView?.backgroundColor = UIColor.orangeColor()
         var movie = searchResultMovies[indexPath.row]
         movieCell.labelMovieTitle.text = movie["title"] as? String
         movieCell.labelMovieSynopsis.text = movie["synopsis"] as? String
