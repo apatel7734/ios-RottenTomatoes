@@ -17,6 +17,6 @@ Completed user stories:
 
 Walkthrough of all user stories:
 
-![Video Walkthrough](https://raw.githubusercontent.com/apatel7734/ios-RottenTomatoes/master/rotten_tomatoes.gif)
+![Video Walkthrough](https://raw.githubusercontent.com/apatel7734/ios-RottenTomatoes/master/rotten_tomatoes_2.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
