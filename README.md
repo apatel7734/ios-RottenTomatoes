@@ -13,6 +13,7 @@ Completed user stories:
  * [x] Optional : For the large poster, load the low-res image first, switch to high-res when complete.
  * [x] Optional : Customize the navigation bar. (optional)
  * [x] Optional : Add a search bar. (optional)
+ * [x] Optional : Add a tab bar for Box Office and DVD. (optional)
 
 Walkthrough of all user stories:
 
