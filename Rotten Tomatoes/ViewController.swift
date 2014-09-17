@@ -16,8 +16,13 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     @IBOutlet var tableViewMovies: UITableView!
     @IBOutlet weak var progressView: UIActivityIndicatorView!
     
+    @IBOutlet weak var dvdBarButtonItem: UIBarButtonItem!
     
-    var RottenTomatoesURLString:String = "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=30&country=us&apikey=kbaevw39bnwehvgepssgthad"
+    @IBOutlet weak var moviesBarButtonItem: UIBarButtonItem!
+    
+    var dvdTopRentals:String = "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=30&country=us&apikey=kbaevw39bnwehvgepssgthad"
+    
+    var moviesLatest:String = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=kbaevw39bnwehvgepssgthad"
     var movies: [NSDictionary] = []
     var searchResultMovies: [NSDictionary] = []
     var imageCache = [String : UIImage]()
@@ -36,20 +41,24 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         //Refresh Control
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
-        self.refreshControl.addTarget(self, action: "reloadMoviesFromNetwork", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: "refreshMovies", forControlEvents: UIControlEvents.ValueChanged)
         self.tableViewMovies.addSubview(refreshControl)
         
         //before sending asynchronouse call
         progressView.startAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible=true
-        reloadMoviesFromNetwork()
+        reloadMoviesFromNetwork(moviesLatest)
     }
     
-    func reloadMoviesFromNetwork(){
+    func refreshMovies(){
+        reloadMoviesFromNetwork(moviesLatest)
+    }
+    
+    func reloadMoviesFromNetwork(networkURL: String){
         if(self.refreshControl.refreshing){
             self.refreshControl.attributedTitle = NSAttributedString(string: "Loading")
         }
-        var request = NSURLRequest(URL: NSURL(string: RottenTomatoesURLString));
+        var request = NSURLRequest(URL: NSURL(string: networkURL));
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response : NSURLResponse!, data : NSData!, error :NSError!) -> Void in
             //check for network error
             if(error != nil && error.code == -1009){
@@ -149,6 +158,19 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
             }
         }
     }
+    
+    @IBAction func dvdBarButtonClicked(sender: UIBarButtonItem) {
+        reloadMoviesFromNetwork(dvdTopRentals)
+        println("DVD Clicked")
+    }
+    
+    
+    @IBAction func moviesBarButtonItemClicked(sender: UIBarButtonItem) {
+        reloadMoviesFromNetwork(moviesLatest)
+        println("Movies Clicked")
+    }
+    
+    
     
 }
 
