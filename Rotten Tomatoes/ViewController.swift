@@ -47,14 +47,18 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         //before sending asynchronouse call
         progressView.startAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible=true
-        reloadMoviesFromNetwork(moviesLatest)
+        reloadMoviesFromNetwork(moviesLatest,type: MovieType.MOVIES)
     }
     
     func refreshMovies(){
-        reloadMoviesFromNetwork(moviesLatest)
+        reloadMoviesFromNetwork(moviesLatest,type: MovieType.MOVIES)
     }
     
-    func reloadMoviesFromNetwork(networkURL: String){
+    enum MovieType{
+        case DVD,MOVIES
+    }
+    
+    func reloadMoviesFromNetwork(networkURL: String,type: MovieType){
         if(self.refreshControl.refreshing){
             self.refreshControl.attributedTitle = NSAttributedString(string: "Loading")
         }
@@ -71,6 +75,11 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
                 self.searchResultMovies = self.movies
                 UIApplication.sharedApplication().networkActivityIndicatorVisible=false
                 self.tableViewMovies.reloadData()
+                if type == MovieType.DVD{
+                    self.navigationItem.title = "DVD"
+                }else{
+                    self.navigationItem.title = "Movies"
+                }
             }
             if(self.refreshControl.refreshing){
                 self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh")
@@ -160,13 +169,13 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     }
     
     @IBAction func dvdBarButtonClicked(sender: UIBarButtonItem) {
-        reloadMoviesFromNetwork(dvdTopRentals)
+        reloadMoviesFromNetwork(dvdTopRentals,type: MovieType.DVD)
         println("DVD Clicked")
     }
     
     
     @IBAction func moviesBarButtonItemClicked(sender: UIBarButtonItem) {
-        reloadMoviesFromNetwork(moviesLatest)
+        reloadMoviesFromNetwork(moviesLatest,type: MovieType.MOVIES)
         println("Movies Clicked")
     }
     
